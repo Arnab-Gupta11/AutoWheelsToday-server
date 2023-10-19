@@ -25,13 +25,48 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
 
     const brandColection = client.db("BrandShopDB").collection("brands");
+    const productColection = client.db("BrandShopDB").collection("products");
 
     app.get("/brands", async (req, res) => {
       const cursor = brandColection.find();
       const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/products", async (req, res) => {
+      const cursor = productColection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/toyota", async (req, res) => {
+      const query = { brand_name: "Toyota" };
+      const result = await productColection.find(query).toArray();
+      res.send(result);
+    });
+    app.get("/bmw", async (req, res) => {
+      const query = { brand_name: "BMW" };
+      const result = await productColection.find(query).toArray();
+      res.send(result);
+    });
+    app.get("/mercedes", async (req, res) => {
+      const query = { brand_name: "Mercedes-Benz" };
+      const result = await productColection.find(query).toArray();
+      res.send(result);
+    });
+    app.get("/tesla", async (req, res) => {
+      const query = { brand_name: "Tesla" };
+      const result = await productColection.find(query).toArray();
+      res.send(result);
+    });
+    app.get("/honda", async (req, res) => {
+      const query = { brand_name: "Honda" };
+      const result = await productColection.find(query).toArray();
+      res.send(result);
+    });
+    app.get("/ford", async (req, res) => {
+      const query = { brand_name: "Ford" };
+      const result = await productColection.find(query).toArray();
       res.send(result);
     });
 
