@@ -28,6 +28,7 @@ async function run() {
 
     const brandColection = client.db("BrandShopDB").collection("brands");
     const productColection = client.db("BrandShopDB").collection("products");
+    const reviewsColection = client.db("BrandShopDB").collection("blogs");
     const cartCollection = client.db("BrandShopDB").collection("carts");
 
     app.get("/brands", async (req, res) => {
@@ -37,6 +38,11 @@ async function run() {
     });
     app.get("/products", async (req, res) => {
       const cursor = productColection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/reviews", async (req, res) => {
+      const cursor = reviewsColection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
