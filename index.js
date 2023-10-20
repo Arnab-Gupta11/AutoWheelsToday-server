@@ -51,6 +51,12 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    app.get("/carts/:email/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await cartCollection.findOne(query);
+      res.send(result);
+    });
     app.get("/carts/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email: email };
@@ -122,6 +128,13 @@ async function run() {
         },
       };
       const result = await productColection.updateOne(filter, product, options);
+      res.send(result);
+    });
+
+    app.delete("/carts/:email/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await cartCollection.deleteOne(query);
       res.send(result);
     });
 
