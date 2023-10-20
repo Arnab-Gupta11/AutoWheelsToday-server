@@ -46,6 +46,17 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    app.get("/carts", async (req, res) => {
+      const cursor = cartCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/carts/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await cartCollection.find(query).toArray();
+      res.send(result);
+    });
     app.get("/brands/Toyota", async (req, res) => {
       const query = { brand_name: "Toyota" };
       const result = await productColection.find(query).toArray();
@@ -86,6 +97,11 @@ async function run() {
     app.post("/products", async (req, res) => {
       const newProduct = req.body;
       const result = await productColection.insertOne(newProduct);
+      res.send(result);
+    });
+    app.post("/carts", async (req, res) => {
+      const newCart = req.body;
+      const result = await cartCollection.insertOne(newCart);
       res.send(result);
     });
 
