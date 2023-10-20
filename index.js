@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -34,39 +34,45 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
-    app.get("/products", async (req, res) => {
+    app.get("/brands/products", async (req, res) => {
       const cursor = productColection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
-    app.get("/toyota", async (req, res) => {
+    app.get("/brands/Toyota", async (req, res) => {
       const query = { brand_name: "Toyota" };
       const result = await productColection.find(query).toArray();
       res.send(result);
     });
-    app.get("/bmw", async (req, res) => {
+    app.get("/brands/Bmw", async (req, res) => {
       const query = { brand_name: "BMW" };
       const result = await productColection.find(query).toArray();
       res.send(result);
     });
-    app.get("/mercedes", async (req, res) => {
+    app.get("/brands/Mercedes-Benz", async (req, res) => {
       const query = { brand_name: "Mercedes-Benz" };
       const result = await productColection.find(query).toArray();
       res.send(result);
     });
-    app.get("/tesla", async (req, res) => {
+    app.get("/brands/Tesla", async (req, res) => {
       const query = { brand_name: "Tesla" };
       const result = await productColection.find(query).toArray();
       res.send(result);
     });
-    app.get("/honda", async (req, res) => {
+    app.get("/brands/Honda", async (req, res) => {
       const query = { brand_name: "Honda" };
       const result = await productColection.find(query).toArray();
       res.send(result);
     });
-    app.get("/ford", async (req, res) => {
+    app.get("/brands/Ford", async (req, res) => {
       const query = { brand_name: "Ford" };
       const result = await productColection.find(query).toArray();
+      res.send(result);
+    });
+    app.get("/brands/:name/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await productColection.findOne(query);
       res.send(result);
     });
 
